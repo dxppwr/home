@@ -1,84 +1,428 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>永遠に</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap" />
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: 'Muli', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 10px;
-            background-color: black;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .button:hover {
-            background-color: white;
-            color: black;
-        }
-        img {
-            width: 220px;
-            height: 200px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #000000;
+      --primary: #ffffff;
+      --accent: #000000;
+      --hover-glow: #ffffff;
+      --input-background: #1a1a1a;
+      --user-glow: #00ff00;
+      --menu-background: #333333;
+      --button-background: #222222;
+      --button-text: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--primary);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--accent);
+      animation: fadeIn 1s ease-out;
+    }
+
+    header .welcome {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 2rem;
+      text-shadow: none; /* Remover o glow */
+      transition: color 0.3s ease;
+    }
+
+    header .welcome:hover {
+      color: var(--hover-glow);
+      text-decoration: underline;
+    }
+
+    .datetime {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .search-bar {
+      display: flex;
+      width: 100%;
+      max-width: 500px;
+      background: var(--input-background);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: none;
+      background: none;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .search-bar input::placeholder {
+      color: #aaaaaa;
+    }
+
+    .search-bar button {
+      background: none;
+      border: none;
+      color: var(--primary);
+      padding: 0 1rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .search-bar:hover {
+      box-shadow: 0px 2px 8px var(--hover-glow);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .links a {
+      padding: 10px 20px;
+      background-color: var(--accent);
+      color: var(--primary);
+      text-decoration: none;
+      border-radius: 8px;
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .links a::after {
+      content: "";
+      position: absolute;
+      left: 30%;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--hover-glow);
+      transition: width 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 10px transparent;
+    }
+
+    .links a:hover::after {
+      width: 40%;
+      box-shadow: 0 0 8px var(--hover-glow);
+      left: 30%;
+    }
+
+    .weather {
+      background: var(--accent);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+      position: relative;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .weather:hover::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 25%;
+      height: 2px;
+      width: 50%;
+      background: var(--hover-glow);
+      box-shadow: 0 0 8px var(--hover-glow);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .settings-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      color: var(--primary);
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255,255,255,0.1);
+      transition: transform 0.3s;
+    }
+
+    .settings-button:hover {
+      transform: scale(1.1);
+    }
+
+    .settings-menu {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--menu-background);
+      padding: 2rem;
+      border-radius: 12px;
+      display: none;
+      box-shadow: 0 5px 20px rgba(255,255,255,0.2);
+      flex-direction: column;
+      gap: 1.5rem;
+      width: 400px;
+    }
+
+    .settings-menu input,
+    .settings-menu button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      background-color: var(--button-background);
+      color: var(--button-text);
+      border: none;
+      border-radius: 8px;
+    }
+
+    .settings-menu button {
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .settings-menu button:hover {
+      background-color: var(--hover-glow);
+    }
+
+    .settings-section {
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 
 <body>
-    <section>
-        <p class="indigo-lightest fw-600 fs-m1 opacity-20 my-5" id="date-time"></p>
-        <br>
-        <br>
-        <center>
-            <img src="./img/6337bb60-885a-4a9e-b079-cce4d4a5b8101.jpeg" alt="">
-        </center>
-        <br>
-        <br>
-        <div class="my-5">
-            <a href="https://chat.openai.com" class="button" target="_blank">ChatGPT</a>
-            <a href="https://gmail.com" class="button" target="_blank">Gmail</a>
-            <a href="https://instagram.com" class="button" target="_blank">Instagram</a>
-            <a href="https://soundcloud.com" class="button" target="_blank">SoundCloud</a>
-            <a href="https://twitch.tv" class="button" target="_blank">Twitch</a>
-            <a href="https://twitter.com" class="button" target="_blank">Twitter</a>
-            <a href="https://youtube.com" class="button" target="_blank">Youtube</a>
-        </div>
-    </section>
 
-    <script>
-        function updateDateTime() {
-            const now = new Date();
-            const options = { weekday: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const dateTimeString = now.toLocaleString('pt-BR', options);
-            document.getElementById('date-time').innerText = dateTimeString;
-        }
+<header>
+  <h2 class="welcome" id="welcomeMessage">Welcome!</h2>
+</header>
 
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
+<!-- Data acima da search bar -->
+<div class="datetime" id="datetime"></div>
 
-        const symbols = ["誇り", "自信", "自己", "強さ", "高貴", "傲慢"];
-        let index = 0;
+<main>
+  <!-- Search Bar Google -->
+  <form class="search-bar" id="searchForm" action="https://www.google.com/search" method="get" target="_blank">
+    <input type="text" name="q" placeholder="Pesquisar no Google..." id="searchInput" required>
+    <button type="submit" title="Buscar texto">🔍</button>
+    <button type="button" id="imageSearch" title="Buscar imagem">🖼️</button>
+  </form>
 
-        setInterval(() => {
-            document.title = symbols[index];
-            index = (index + 1) % symbols.length;
-        }, 1000);
-    </script>
+  <!-- Weather Widget -->
+  <div class="weather" id="weather">
+    <h2 id="cityName">Cidade não definida</h2>
+    <p>Loading weather...</p>
+  </div>
+
+  <!-- Links -->
+  <div class="links" id="linksContainer">
+    <!-- Links serão adicionados aqui -->
+  </div>
+</main>
+
+<footer>
+  <p>dxppwr - 2025</p>
+</footer>
+
+<!-- Settings Button -->
+<button class="settings-button" id="settingsBtn">⚙️</button>
+
+<!-- Settings Menu -->
+<div class="settings-menu" id="settingsMenu">
+  <div class="settings-section">
+    <h3>User</h3>
+    <input type="text" id="username" placeholder="Insira seu nome (User)">
+  </div>
+
+  <div class="settings-section">
+    <h3>Cidade</h3>
+    <input type="text" id="city" placeholder="Insira o nome da cidade">
+  </div>
+
+  <div class="settings-section">
+    <h3>Links</h3>
+    <input type="text" id="linkName" placeholder="Nome do link">
+    <input type="text" id="link" placeholder="Inserir link">
+  </div>
+
+  <button id="addLinkBtn">Adicionar Link</button>
+  <button id="saveSettingsBtn">Salvar Configurações</button>
+  <button id="clearSettingsBtn">Limpar Informações</button>
+</div>
+
+<script>
+  function updateDatetime() {
+    const daysOfWeek = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+    const monthsOfYear = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+
+    const now = new Date();
+    const dayOfWeek = daysOfWeek[now.getDay()];
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const formattedTime = `${hour % 12 || 12}:${minute} ${ampm}`;
+
+    const dateStr = `${dayOfWeek}, ${day},${month},${year} - ${formattedTime}`;
+    document.getElementById('datetime').textContent = dateStr;
+  }
+
+  setInterval(updateDatetime, 1000); // Atualiza a cada segundo
+
+  async function getWeather(city = 'São Paulo') {
+    try {
+      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current_weather=true`);
+      const data = await response.json();
+      const temp = data.current_weather.temperature;
+      const wind = data.current_weather.windspeed;
+      const weatherBox = document.getElementById('weather');
+      weatherBox.innerHTML = `
+        <h2 id="cityName">${city}</h2>
+        <p>🌡️ ${temp}°C</p>
+        <p>💨 ${wind} km/h</p>
+      `;
+    } catch (error) {
+      document.getElementById('weather').innerText = 'Erro ao carregar o clima.';
+    }
+  }
+
+  const settingsBtn = document.getElementById('settingsBtn');
+  const settingsMenu = document.getElementById('settingsMenu');
+  const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+  const addLinkBtn = document.getElementById('addLinkBtn');
+  const clearSettingsBtn = document.getElementById('clearSettingsBtn');
+  const welcomeMessage = document.getElementById('welcomeMessage');
+  const cityName = document.getElementById('cityName');
+  const linksContainer = document.getElementById('linksContainer');
+
+  // Carregar dados do localStorage
+  window.onload = () => {
+    const storedUsername = localStorage.getItem('username');
+    const storedCity = localStorage.getItem('city');
+    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+
+    if (storedUsername) {
+      welcomeMessage.innerHTML = `Welcome, <span class="welcome">${storedUsername}</span>`;
+    }
+
+    if (storedCity) {
+      getWeather(storedCity);
+      cityName.innerHTML = storedCity;
+    }
+
+    storedLinks.forEach(link => {
+      const newLink = document.createElement('a');
+      newLink.href = link;
+      newLink.target = "_blank";
+      newLink.innerText = link;
+      linksContainer.appendChild(newLink);
+    });
+  };
+
+  settingsBtn.addEventListener('click', () => {
+    settingsMenu.style.display = settingsMenu.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  saveSettingsBtn.addEventListener('click', () => {
+    const username = document.getElementById('username').value;
+    const city = document.getElementById('city').value;
+
+    if (username) {
+      welcomeMessage.innerHTML = `Welcome, <span class="welcome">${username}</span>`;
+      localStorage.setItem('username', username);
+    }
+
+    if (city) {
+      getWeather(city);
+      localStorage.setItem('city', city);
+    }
+
+    settingsMenu.style.display = 'none';
+  });
+
+  addLinkBtn.addEventListener('click', () => {
+    const linkName = document.getElementById('linkName').value;
+    const link = document.getElementById('link').value;
+
+    if (!link || !linkName) {
+      alert("Por favor, insira tanto o nome quanto o link.");
+      return;
+    }
+
+    const newLink = document.createElement('a');
+    newLink.href = link;
+    newLink.target = "_blank";
+    newLink.innerText = linkName;
+    linksContainer.appendChild(newLink);
+
+    let storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+    storedLinks.push({ linkName, link });
+    localStorage.setItem('links', JSON.stringify(storedLinks));
+
+    document.getElementById('linkName').value = '';
+    document.getElementById('link').value = '';
+  });
+
+  clearSettingsBtn.addEventListener('click', () => {
+    if (confirm('Tem certeza que deseja limpar todas as informações salvas?')) {
+      localStorage.removeItem('username');
+      localStorage.removeItem('city');
+      localStorage.removeItem('links');
+      welcomeMessage.innerHTML = 'Welcome!';
+      cityName.innerHTML = 'Cidade não definida';
+      linksContainer.innerHTML = '';
+      settingsMenu.style.display = 'none';
+    }
+  });
+</script>
+
 </body>
-
 </html>
