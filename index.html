@@ -1,428 +1,1329 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minimal Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --background: #000000;
-      --primary: #ffffff;
-      --accent: #000000;
-      --hover-glow: #ffffff;
-      --input-background: #1a1a1a;
-      --user-glow: #00ff00;
-      --menu-background: #333333;
-      --button-background: #222222;
-      --button-text: #ffffff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: var(--background);
-      color: var(--primary);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      text-align: center;
-      padding: 1.5rem;
-      background-color: var(--accent);
-      animation: fadeIn 1s ease-out;
-    }
-
-    header .welcome {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 2rem;
-      text-shadow: none; /* Remover o glow */
-      transition: color 0.3s ease;
-    }
-
-    header .welcome:hover {
-      color: var(--hover-glow);
-      text-decoration: underline;
-    }
-
-    .datetime {
-      font-size: 1rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      gap: 2rem;
-    }
-
-    .search-bar {
-      display: flex;
-      width: 100%;
-      max-width: 500px;
-      background: var(--input-background);
-      border-radius: 30px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(255,255,255,0.05);
-      transition: all 0.3s ease;
-    }
-
-    .search-bar input {
-      flex: 1;
-      padding: 0.8rem 1rem;
-      border: none;
-      background: none;
-      color: var(--primary);
-      font-size: 1rem;
-    }
-
-    .search-bar input::placeholder {
-      color: #aaaaaa;
-    }
-
-    .search-bar button {
-      background: none;
-      border: none;
-      color: var(--primary);
-      padding: 0 1rem;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: color 0.3s ease;
-    }
-
-    .search-bar:hover {
-      box-shadow: 0px 2px 8px var(--hover-glow);
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .links a {
-      padding: 10px 20px;
-      background-color: var(--accent);
-      color: var(--primary);
-      text-decoration: none;
-      border-radius: 8px;
-      position: relative;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .links a::after {
-      content: "";
-      position: absolute;
-      left: 30%;
-      bottom: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--hover-glow);
-      transition: width 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 10px transparent;
-    }
-
-    .links a:hover::after {
-      width: 40%;
-      box-shadow: 0 0 8px var(--hover-glow);
-      left: 30%;
-    }
-
-    .weather {
-      background: var(--accent);
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 300px;
-      position: relative;
-      transition: box-shadow 0.3s ease;
-    }
-
-    .weather:hover::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 25%;
-      height: 2px;
-      width: 50%;
-      background: var(--hover-glow);
-      box-shadow: 0 0 8px var(--hover-glow);
-    }
-
-    footer p {
-      font-size: 0.9rem;
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .settings-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: var(--accent);
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      color: var(--primary);
-      font-size: 2rem;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255,255,255,0.1);
-      transition: transform 0.3s;
-    }
-
-    .settings-button:hover {
-      transform: scale(1.1);
-    }
-
-    .settings-menu {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: var(--menu-background);
-      padding: 2rem;
-      border-radius: 12px;
-      display: none;
-      box-shadow: 0 5px 20px rgba(255,255,255,0.2);
-      flex-direction: column;
-      gap: 1.5rem;
-      width: 400px;
-    }
-
-    .settings-menu input,
-    .settings-menu button {
-      width: 100%;
-      padding: 1rem;
-      margin-top: 0.5rem;
-      background-color: var(--button-background);
-      color: var(--button-text);
-      border: none;
-      border-radius: 8px;
-    }
-
-    .settings-menu button {
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .settings-menu button:hover {
-      background-color: var(--hover-glow);
-    }
-
-    .settings-section {
-      margin-bottom: 1.5rem;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+         :root {
+            --background: #000000;
+            --primary: #ffffff;
+            --accent: #000000;
+            --hover-glow: #ffffff;
+            --input-background: #1a1a1a;
+            --user-glow: #00ff00;
+            --menu-background: #111111;
+            --button-background: #222222;
+            --button-text: #ffffff;
+            --menu-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+         :root[data-theme="light"] {
+            --background: #F3F0E8;
+            --primary: #000000;
+            --accent: #F3F0E8;
+            --hover-glow: #000000;
+            --input-background: #ffffff;
+            --user-glow: #00ff00;
+            --menu-background: #ffffff;
+            --button-background: #f0f0f0;
+            --button-text: #000000;
+            --menu-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--accent);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        header .welcome {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 2rem;
+            text-shadow: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+        
+        header .welcome::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--hover-glow);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        
+        header .welcome:hover {
+            color: var(--hover-glow);
+            transform: translateY(-2px);
+        }
+        
+        header .welcome:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .datetime {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            gap: 2rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            background: var(--input-background);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            position: relative;
+            height: 50px;
+        }
+        
+        .search-engine-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--primary);
+            background: var(--button-background);
+            margin-bottom: 1rem;
+        }
+        
+        .search-engine-selector:hover {
+            background: var(--hover-glow);
+            color: var(--background);
+        }
+        
+        .search-engine-selector i {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .search-engine-selector span {
+            font-size: 0.9rem;
+        }
+        
+        .search-engine-selector .description {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-left: 5px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            background: none;
+            color: var(--primary);
+            font-size: 1.1rem;
+            outline: none;
+            height: 100%;
+        }
+        
+        .search-bar input::placeholder {
+            color: #aaaaaa;
+        }
+        
+        .search-bar button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            padding: 0 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .search-bar:hover {
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--hover-glow);
+        }
+        
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .links a {
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 8px;
+            position: relative;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .links a::after {
+            content: "";
+            position: absolute;
+            left: 30%;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--hover-glow);
+            transition: width 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px transparent;
+        }
+        
+        .links a:hover::after {
+            width: 40%;
+            box-shadow: 0 0 8px var(--hover-glow);
+            left: 30%;
+        }
+        
+        .weather {
+            background: var(--accent);
+            padding: 1.5rem 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 300px;
+            position: relative;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .weather:hover {
+            transform: scale(1.05);
+        }
+        
+        .weather-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .weather-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .weather-info p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .settings-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .settings-button:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 0 15px var(--hover-glow);
+        }
+        
+        .settings-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--menu-background);
+            padding: 2rem;
+            border-radius: 16px;
+            display: none;
+            box-shadow: var(--menu-shadow);
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 500px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: menuSlideIn 0.3s ease-out;
+        }
+        
+        .settings-menu::-webkit-scrollbar {
+            width: 2px;
+        }
+        
+        .settings-menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .settings-menu::-webkit-scrollbar-thumb {
+            background: var(--primary);
+        }
+        
+        .settings-menu h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .settings-menu h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--hover-glow);
+            transition: width 0.3s ease;
+        }
+        
+        .settings-menu h3:hover::after {
+            width: 100%;
+        }
+        
+        .settings-menu input,
+        .settings-menu button {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            background-color: var(--button-background);
+            color: var(--button-text);
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .settings-menu input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--hover-glow);
+        }
+        
+        .settings-menu button {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .settings-menu button:hover {
+            background-color: var(--hover-glow);
+            color: var(--background);
+            transform: translateY(-2px);
+        }
+        
+        .settings-section {
+            margin-bottom: 1rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .links-list {
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        
+        .links-list::-webkit-scrollbar {
+            width: 2px;
+        }
+        
+        .links-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .links-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: var(--button-background);
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .link-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        
+        .link-item span {
+            flex: 1;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+        
+        .link-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .link-actions button {
+            background: none;
+            border: none;
+            color: var(--button-text);
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+        }
+        
+        .link-actions button:hover {
+            color: var(--hover-glow);
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .edit-link-inputs {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .edit-link-inputs input {
+            flex: 1;
+            padding: 0.75rem;
+        }
+        
+        .edit-link-inputs button {
+            padding: 0.75rem;
+            width: auto;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes menuSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .settings-input {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            background-color: var(--button-background);
+            color: var(--button-text);
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .settings-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--hover-glow);
+        }
+        
+        .settings-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--hover-glow);
+        }
+        
+        .theme-toggle i {
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-toggle:hover i {
+            transform: rotate(180deg);
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <h2 class="welcome" id="welcomeMessage">Welcome!</h2>
-</header>
+    <header>
+        <h2 class="welcome" id="welcomeMessage">Welcome!</h2>
+    </header>
 
-<!-- Data acima da search bar -->
-<div class="datetime" id="datetime"></div>
+    <!-- Data acima da search bar -->
+    <div class="datetime" id="datetime"></div>
 
-<main>
-  <!-- Search Bar Google -->
-  <form class="search-bar" id="searchForm" action="https://www.google.com/search" method="get" target="_blank">
-    <input type="text" name="q" placeholder="Pesquisar no Google..." id="searchInput" required>
-    <button type="submit" title="Buscar texto">🔍</button>
-    <button type="button" id="imageSearch" title="Buscar imagem">🖼️</button>
-  </form>
+    <main>
+        <!-- Search Bar -->
+        <form class="search-bar" id="searchForm" action="https://www.google.com/search" method="get" target="_blank">
+            <input type="text" name="q" placeholder="Pesquisar..." id="searchInput" required>
+            <button type="submit" title="Buscar texto"><i class="fas fa-search"></i></button>
+            <button type="button" id="imageSearch" title="Buscar imagem"><i class="fas fa-image"></i></button>
+        </form>
 
-  <!-- Weather Widget -->
-  <div class="weather" id="weather">
-    <h2 id="cityName">Cidade não definida</h2>
-    <p>Loading weather...</p>
-  </div>
+        <!-- Weather Widget -->
+        <div class="weather" id="weather">
+            <h2 id="cityName">Cidade não definida</h2>
+            <p>Loading weather...</p>
+        </div>
 
-  <!-- Links -->
-  <div class="links" id="linksContainer">
-    <!-- Links serão adicionados aqui -->
-  </div>
-</main>
+        <!-- Links -->
+        <div class="links" id="linksContainer">
+            <!-- Links serão adicionados aqui -->
+        </div>
+    </main>
 
-<footer>
-  <p>dxppwr - 2025</p>
-</footer>
+    <footer>
+        <p>dxppwr - 2025</p>
+    </footer>
 
-<!-- Settings Button -->
-<button class="settings-button" id="settingsBtn">⚙️</button>
+    <!-- Settings Button -->
+    <button class="settings-button" id="settingsBtn"><i class="fas fa-cog"></i></button>
 
-<!-- Settings Menu -->
-<div class="settings-menu" id="settingsMenu">
-  <div class="settings-section">
-    <h3>User</h3>
-    <input type="text" id="username" placeholder="Insira seu nome (User)">
-  </div>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
 
-  <div class="settings-section">
-    <h3>Cidade</h3>
-    <input type="text" id="city" placeholder="Insira o nome da cidade">
-  </div>
+    <!-- Settings Menu -->
+    <div class="settings-menu" id="settingsMenu">
+        <div class="settings-section">
+            <h3>User</h3>
+            <input type="text" id="username" placeholder="Insira seu nome (User)">
+        </div>
 
-  <div class="settings-section">
-    <h3>Links</h3>
-    <input type="text" id="linkName" placeholder="Nome do link">
-    <input type="text" id="link" placeholder="Inserir link">
-  </div>
+        <div class="settings-section">
+            <h3>Motor de Busca</h3>
+            <div class="search-engine-selector" id="searchEngineSelector">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+                <span class="description">Padrão</span>
+            </div>
+            <div class="search-engine-options">
+                <div class="search-engine-option" data-engine="google" data-action="https://www.google.com/search">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                    <span class="description">Padrão</span>
+                </div>
+                <div class="search-engine-option" data-engine="duckduckgo" data-action="https://duckduckgo.com/">
+                    <i class="fab fa-duckduckgo"></i>
+                    <span>DuckDuckGo</span>
+                    <span class="description">Privacidade</span>
+                </div>
+                <div class="search-engine-option" data-engine="brave" data-action="https://search.brave.com/search">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Brave Search</span>
+                    <span class="description">Independente</span>
+                </div>
+                <div class="search-engine-option" data-engine="startpage" data-action="https://www.startpage.com/do/search">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Startpage</span>
+                    <span class="description">Privacidade</span>
+                </div>
+                <div class="search-engine-option" data-engine="bing" data-action="https://www.bing.com/search">
+                    <i class="fab fa-microsoft"></i>
+                    <span>Bing</span>
+                    <span class="description">Microsoft</span>
+                </div>
+                <div class="search-engine-option" data-engine="ecosia" data-action="https://www.ecosia.org/search">
+                    <i class="fas fa-tree"></i>
+                    <span>Ecosia</span>
+                    <span class="description">Ecológico</span>
+                </div>
+                <div class="search-engine-option" data-engine="qwant" data-action="https://www.qwant.com/">
+                    <i class="fas fa-lock"></i>
+                    <span>Qwant</span>
+                    <span class="description">Privacidade</span>
+                </div>
+            </div>
+        </div>
 
-  <button id="addLinkBtn">Adicionar Link</button>
-  <button id="saveSettingsBtn">Salvar Configurações</button>
-  <button id="clearSettingsBtn">Limpar Informações</button>
-</div>
+        <div class="settings-section">
+            <h3>Cidade</h3>
+            <select id="state" class="settings-input">
+                <option value="">Selecione um estado</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+            </select>
+            <select id="city" class="settings-input" disabled>
+                <option value="">Selecione uma cidade</option>
+            </select>
+        </div>
 
-<script>
-  function updateDatetime() {
-    const daysOfWeek = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
-    const monthsOfYear = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+        <div class="settings-section">
+            <h3>Links</h3>
+            <input type="text" id="linkName" placeholder="Nome do link">
+            <input type="text" id="link" placeholder="Inserir link">
+            <button id="addLinkBtn">Adicionar Link</button>
+            <div class="links-list" id="linksList">
+                <!-- Links serão adicionados aqui -->
+            </div>
+        </div>
 
-    const now = new Date();
-    const dayOfWeek = daysOfWeek[now.getDay()];
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const hour = now.getHours();
-    const minute = String(now.getMinutes()).padStart(2, '0');
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const formattedTime = `${hour % 12 || 12}:${minute} ${ampm}`;
+        <button id="saveSettingsBtn"><i class="fas fa-save"></i> Salvar Configurações</button>
+        <button id="clearSettingsBtn"><i class="fas fa-trash"></i> Limpar Informações</button>
+    </div>
 
-    const dateStr = `${dayOfWeek}, ${day},${month},${year} - ${formattedTime}`;
-    document.getElementById('datetime').textContent = dateStr;
-  }
+    <script>
+        function updateDatetime() {
+            const daysOfWeek = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+            const monthsOfYear = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
-  setInterval(updateDatetime, 1000); // Atualiza a cada segundo
+            const now = new Date();
+            const dayOfWeek = daysOfWeek[now.getDay()];
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const hour = now.getHours();
+            const minute = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const formattedTime = `${hour % 12 || 12}:${minute} ${ampm}`;
 
-  async function getWeather(city = 'São Paulo') {
-    try {
-      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current_weather=true`);
-      const data = await response.json();
-      const temp = data.current_weather.temperature;
-      const wind = data.current_weather.windspeed;
-      const weatherBox = document.getElementById('weather');
-      weatherBox.innerHTML = `
-        <h2 id="cityName">${city}</h2>
-        <p>🌡️ ${temp}°C</p>
-        <p>💨 ${wind} km/h</p>
-      `;
-    } catch (error) {
-      document.getElementById('weather').innerText = 'Erro ao carregar o clima.';
-    }
-  }
+            const dateStr = `${dayOfWeek}, ${day}/${month}/${year} - ${formattedTime}`;
+            document.getElementById('datetime').textContent = dateStr;
+        }
 
-  const settingsBtn = document.getElementById('settingsBtn');
-  const settingsMenu = document.getElementById('settingsMenu');
-  const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-  const addLinkBtn = document.getElementById('addLinkBtn');
-  const clearSettingsBtn = document.getElementById('clearSettingsBtn');
-  const welcomeMessage = document.getElementById('welcomeMessage');
-  const cityName = document.getElementById('cityName');
-  const linksContainer = document.getElementById('linksContainer');
+        setInterval(updateDatetime, 1000); // Atualiza a cada segundo
 
-  // Carregar dados do localStorage
-  window.onload = () => {
-    const storedUsername = localStorage.getItem('username');
-    const storedCity = localStorage.getItem('city');
-    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+        const stateSelect = document.getElementById('state');
+        const citySelect = document.getElementById('city');
 
-    if (storedUsername) {
-      welcomeMessage.innerHTML = `Welcome, <span class="welcome">${storedUsername}</span>`;
-    }
+        // Função para buscar cidades do IBGE
+        async function fetchCitiesByState(stateCode) {
+            try {
+                const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${stateCode}/municipios`);
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar cidades');
+                }
+                const cities = await response.json();
+                return cities.map(city => city.nome);
+            } catch (error) {
+                console.error('Erro ao buscar cidades:', error);
+                return [];
+            }
+        }
 
-    if (storedCity) {
-      getWeather(storedCity);
-      cityName.innerHTML = storedCity;
-    }
+        // Atualizar lista de cidades quando o estado é selecionado
+        stateSelect.addEventListener('change', async() => {
+            const selectedState = stateSelect.value;
+            citySelect.innerHTML = '<option value="">Carregando cidades...</option>';
+            citySelect.disabled = true;
 
-    storedLinks.forEach(link => {
-      const newLink = document.createElement('a');
-      newLink.href = link;
-      newLink.target = "_blank";
-      newLink.innerText = link;
-      linksContainer.appendChild(newLink);
-    });
-  };
+            if (selectedState) {
+                const cities = await fetchCitiesByState(selectedState);
+                citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
 
-  settingsBtn.addEventListener('click', () => {
-    settingsMenu.style.display = settingsMenu.style.display === 'flex' ? 'none' : 'flex';
-  });
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
 
-  saveSettingsBtn.addEventListener('click', () => {
-    const username = document.getElementById('username').value;
-    const city = document.getElementById('city').value;
+                citySelect.disabled = false;
+            }
+        });
 
-    if (username) {
-      welcomeMessage.innerHTML = `Welcome, <span class="welcome">${username}</span>`;
-      localStorage.setItem('username', username);
-    }
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsMenu = document.getElementById('settingsMenu');
+        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+        const addLinkBtn = document.getElementById('addLinkBtn');
+        const clearSettingsBtn = document.getElementById('clearSettingsBtn');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const cityName = document.getElementById('cityName');
+        const linksContainer = document.getElementById('linksContainer');
+        const imageSearch = document.getElementById('imageSearch');
+        const linksList = document.getElementById('linksList');
 
-    if (city) {
-      getWeather(city);
-      localStorage.setItem('city', city);
-    }
+        // Função para fechar o menu
+        function closeSettingsMenu() {
+            settingsMenu.style.display = 'none';
+        }
 
-    settingsMenu.style.display = 'none';
-  });
+        // Evento para fechar o menu com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && settingsMenu.style.display === 'flex') {
+                closeSettingsMenu();
+            }
+        });
 
-  addLinkBtn.addEventListener('click', () => {
-    const linkName = document.getElementById('linkName').value;
-    const link = document.getElementById('link').value;
+        // Evento para fechar o menu ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (settingsMenu.style.display === 'flex' &&
+                !settingsMenu.contains(e.target) &&
+                e.target !== settingsBtn) {
+                closeSettingsMenu();
+            }
+        });
 
-    if (!link || !linkName) {
-      alert("Por favor, insira tanto o nome quanto o link.");
-      return;
-    }
+        // Carregar dados do localStorage
+        window.onload = async() => {
+            const storedUsername = localStorage.getItem('username');
+            const storedCity = localStorage.getItem('city');
+            const storedState = localStorage.getItem('state');
+            let storedLinks = JSON.parse(localStorage.getItem('links')) || [];
 
-    const newLink = document.createElement('a');
-    newLink.href = link;
-    newLink.target = "_blank";
-    newLink.innerText = linkName;
-    linksContainer.appendChild(newLink);
+            // Adicionar links padrão se não houver links salvos
+            if (storedLinks.length === 0) {
+                storedLinks = [{
+                    linkName: 'ChatGPT',
+                    link: 'https://chat.openai.com/'
+                }, {
+                    linkName: 'Crunchyroll',
+                    link: 'https://www.crunchyroll.com/'
+                }, {
+                    linkName: 'Gmail',
+                    link: 'https://mail.google.com/'
+                }, {
+                    linkName: 'Instagram',
+                    link: 'https://www.instagram.com/'
+                }, {
+                    linkName: 'Steam',
+                    link: 'https://store.steampowered.com/'
+                }, {
+                    linkName: 'TikTok',
+                    link: 'https://www.tiktok.com/'
+                }, {
+                    linkName: 'Twitch',
+                    link: 'https://www.twitch.tv/'
+                }, {
+                    linkName: 'Twitter',
+                    link: 'https://twitter.com/'
+                }, {
+                    linkName: 'YouTube',
+                    link: 'https://www.youtube.com/'
+                }];
+                localStorage.setItem('links', JSON.stringify(storedLinks));
+            }
 
-    let storedLinks = JSON.parse(localStorage.getItem('links')) || [];
-    storedLinks.push({ linkName, link });
-    localStorage.setItem('links', JSON.stringify(storedLinks));
+            if (storedUsername) {
+                welcomeMessage.innerHTML = `Welcome, <span class="welcome">${storedUsername}</span>`;
+                document.getElementById('username').value = storedUsername;
+            }
 
-    document.getElementById('linkName').value = '';
-    document.getElementById('link').value = '';
-  });
+            if (storedState && storedCity) {
+                stateSelect.value = storedState;
+                await stateSelect.dispatchEvent(new Event('change'));
+                citySelect.value = storedCity;
+                getWeather(`${storedCity},${storedState}`);
+            }
 
-  clearSettingsBtn.addEventListener('click', () => {
-    if (confirm('Tem certeza que deseja limpar todas as informações salvas?')) {
-      localStorage.removeItem('username');
-      localStorage.removeItem('city');
-      localStorage.removeItem('links');
-      welcomeMessage.innerHTML = 'Welcome!';
-      cityName.innerHTML = 'Cidade não definida';
-      linksContainer.innerHTML = '';
-      settingsMenu.style.display = 'none';
-    }
-  });
-</script>
+            updateMainLinks();
+        };
+
+        function updateLinksList() {
+            linksList.innerHTML = '';
+            const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+
+            storedLinks.forEach((link, index) => {
+                const linkItem = document.createElement('div');
+                linkItem.className = 'link-item';
+                linkItem.innerHTML = `
+                    <span>${link.linkName} - ${link.link}</span>
+                    <div class="link-actions">
+                        <button class="edit-link" data-index="${index}"><i class="fas fa-edit"></i></button>
+                        <button class="delete-link" data-index="${index}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                linksList.appendChild(linkItem);
+            });
+
+            // Adicionar eventos para os botões de edição e exclusão
+            document.querySelectorAll('.edit-link').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+                    const link = storedLinks[index];
+
+                    const editForm = document.createElement('div');
+                    editForm.className = 'edit-link-inputs';
+                    editForm.innerHTML = `
+                        <input type="text" class="edit-link-name" value="${link.linkName}" placeholder="Novo nome">
+                        <input type="text" class="edit-link-url" value="${link.link}" placeholder="Nova URL">
+                        <button class="save-edit" data-index="${index}"><i class="fas fa-save"></i></button>
+                    `;
+
+                    const linkItem = e.target.closest('.link-item');
+                    linkItem.appendChild(editForm);
+
+                    // Esconder os botões de ação durante a edição
+                    linkItem.querySelector('.link-actions').style.display = 'none';
+                });
+            });
+
+            document.querySelectorAll('.save-edit').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    const linkItem = e.target.closest('.link-item');
+                    const newName = linkItem.querySelector('.edit-link-name').value;
+                    const newUrl = linkItem.querySelector('.edit-link-url').value;
+
+                    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+                    storedLinks[index] = {
+                        linkName: newName,
+                        link: newUrl
+                    };
+                    localStorage.setItem('links', JSON.stringify(storedLinks));
+
+                    // Atualizar a lista e os links na página principal
+                    updateLinksList();
+                    updateMainLinks();
+                });
+            });
+
+            document.querySelectorAll('.delete-link').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+                    storedLinks.splice(index, 1);
+                    localStorage.setItem('links', JSON.stringify(storedLinks));
+
+                    // Atualizar a lista e os links na página principal
+                    updateLinksList();
+                    updateMainLinks();
+                });
+            });
+        }
+
+        function updateMainLinks() {
+            linksContainer.innerHTML = '';
+            const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+            storedLinks.forEach(link => {
+                const newLink = document.createElement('a');
+                newLink.href = link.link;
+                newLink.target = "_blank";
+                newLink.innerText = link.linkName;
+                linksContainer.appendChild(newLink);
+            });
+        }
+
+        // Atualizar a lista de links quando o menu é aberto
+        settingsBtn.addEventListener('click', () => {
+            settingsMenu.style.display = settingsMenu.style.display === 'flex' ? 'none' : 'flex';
+            if (settingsMenu.style.display === 'flex') {
+                updateLinksList();
+            }
+        });
+
+        // Atualizar a lista de links quando um novo link é adicionado
+        addLinkBtn.addEventListener('click', () => {
+            const linkName = document.getElementById('linkName').value;
+            let link = document.getElementById('link').value;
+
+            if (!link || !linkName) {
+                alert("Por favor, insira tanto o nome quanto o link.");
+                return;
+            }
+
+            // Formatar o link para garantir que tenha https://
+            if (!link.startsWith('http://') && !link.startsWith('https://')) {
+                link = 'https://' + link;
+            }
+
+            let storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+            storedLinks.push({
+                linkName: linkName,
+                link: link
+            });
+            localStorage.setItem('links', JSON.stringify(storedLinks));
+
+            document.getElementById('linkName').value = '';
+            document.getElementById('link').value = '';
+
+            // Atualizar a lista e os links na página principal
+            updateLinksList();
+            updateMainLinks();
+        });
+
+        // Adicionar evento de input para o campo de link
+        document.getElementById('link').addEventListener('input', function(e) {
+            let value = this.value;
+            if (!value.startsWith('http://') && !value.startsWith('https://')) {
+                this.value = 'https://' + value;
+            }
+        });
+
+        // Adicionar evento de clique no botão de pesquisa por imagem
+        imageSearch.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.click();
+
+            input.onchange = async(e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const formData = new FormData();
+                formData.append('image', file);
+
+                // Mostrar carregando
+                const weatherBox = document.getElementById('weather');
+                const oldWeather = weatherBox.innerHTML;
+                weatherBox.innerHTML = '⏳ Enviando imagem...';
+
+                try {
+                    const response = await fetch('https://api.imgur.com/3/image', {
+                        method: 'POST',
+                        headers: {
+                            Authorization: 'Client-ID 6ac6a56e81fb78d'
+                        },
+                        body: formData
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        const imageUrl = data.data.link;
+                        window.open(`https://lens.google.com/uploadbyurl?url=${imageUrl}`, '_blank');
+                        window.open(`https://yandex.com/images/search?rpt=imageview&url=${imageUrl}`, '_blank');
+                        window.open(`https://tineye.com/search?url=${imageUrl}`, '_blank');
+                    } else {
+                        alert('Erro ao fazer upload da imagem.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Falha no upload da imagem!');
+                } finally {
+                    weatherBox.innerHTML = oldWeather;
+                }
+            };
+        });
+
+        // Adicionar evento de colar para pesquisa por imagem
+        document.addEventListener('paste', async(event) => {
+            const items = event.clipboardData.items;
+            for (const item of items) {
+                if (item.type.indexOf('image') !== -1) {
+                    const file = item.getAsFile();
+
+                    const formData = new FormData();
+                    formData.append('image', file);
+
+                    // Mostrar carregando
+                    const weatherBox = document.getElementById('weather');
+                    const oldWeather = weatherBox.innerHTML;
+                    weatherBox.innerHTML = '⏳ Enviando imagem...';
+
+                    try {
+                        const response = await fetch('https://api.imgur.com/3/image', {
+                            method: 'POST',
+                            headers: {
+                                Authorization: 'Client-ID 6ac6a56e81fb78d'
+                            },
+                            body: formData
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            const imageUrl = data.data.link;
+                            window.open(`https://lens.google.com/uploadbyurl?url=${imageUrl}`, '_blank');
+                            window.open(`https://yandex.com/images/search?rpt=imageview&url=${imageUrl}`, '_blank');
+                            window.open(`https://tineye.com/search?url=${imageUrl}`, '_blank');
+                        } else {
+                            alert('Erro ao fazer upload da imagem.');
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        alert('Falha no upload da imagem!');
+                    } finally {
+                        weatherBox.innerHTML = oldWeather;
+                    }
+                }
+            }
+        });
+
+        // Adicionar validação ao campo de cidade
+        document.getElementById('city').addEventListener('input', function(e) {
+            const cityFormat = /^[A-Za-zÀ-ÿ\s]+,(?:AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)$/;
+            if (this.value && !cityFormat.test(this.value)) {
+                this.setCustomValidity('Use o formato: Cidade,UF (exemplo: Campinas,SP)');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        saveSettingsBtn.addEventListener('click', () => {
+            const username = document.getElementById('username').value;
+            const city = citySelect.value;
+            const state = stateSelect.value;
+
+            if (username) {
+                welcomeMessage.innerHTML = `Welcome, <span class="welcome">${username}</span>`;
+                localStorage.setItem('username', username);
+            }
+
+            if (city && state) {
+                getWeather(`${city},${state}`);
+                localStorage.setItem('city', city);
+                localStorage.setItem('state', state);
+            }
+
+            closeSettingsMenu();
+        });
+
+        clearSettingsBtn.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja limpar todas as informações salvas?')) {
+                localStorage.removeItem('username');
+                localStorage.removeItem('city');
+                localStorage.removeItem('state');
+                localStorage.removeItem('links');
+
+                welcomeMessage.innerHTML = 'Welcome!';
+                cityName.innerHTML = 'Cidade não definida';
+                linksContainer.innerHTML = '';
+                document.getElementById('username').value = '';
+                stateSelect.value = '';
+                citySelect.value = '';
+                citySelect.disabled = true;
+
+                updateLinksList();
+                closeSettingsMenu();
+            }
+        });
+
+        async function getWeather(cityAndState) {
+            try {
+                const [city, state] = cityAndState.split(',');
+
+                // Primeiro, buscar as coordenadas usando a API do Open-Meteo
+                const geocodeResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=pt&format=json`);
+                const geocodeData = await geocodeResponse.json();
+
+                if (!geocodeData || !geocodeData.results || geocodeData.results.length === 0) {
+                    throw new Error('Cidade não encontrada');
+                }
+
+                const {
+                    latitude,
+                    longitude
+                } = geocodeData.results[0];
+
+                // Buscar o clima usando as coordenadas
+                const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,wind_speed_10m,wind_direction_10m&timezone=auto&forecast_days=1`);
+                const weatherData = await weatherResponse.json();
+
+                if (!weatherData || !weatherData.current) {
+                    throw new Error('Erro ao buscar dados do clima');
+                }
+
+                const temp = Math.round(weatherData.current.temperature_2m);
+                const wind = Math.round(weatherData.current.wind_speed_10m);
+                const weatherCode = weatherData.current.weather_code;
+
+                // Mapeamento dos códigos de clima do Open-Meteo para descrições e ícones
+                const weatherCodes = {
+                    0: {
+                        desc: 'Céu limpo',
+                        icon: '<i class="fas fa-sun"></i>'
+                    },
+                    1: {
+                        desc: 'Parcialmente nublado',
+                        icon: '<i class="fas fa-cloud-sun"></i>'
+                    },
+                    2: {
+                        desc: 'Nublado',
+                        icon: '<i class="fas fa-cloud"></i>'
+                    },
+                    3: {
+                        desc: 'Nublado',
+                        icon: '<i class="fas fa-cloud"></i>'
+                    },
+                    45: {
+                        desc: 'Neblina',
+                        icon: '<i class="fas fa-smog"></i>'
+                    },
+                    48: {
+                        desc: 'Neblina com geada',
+                        icon: '<i class="fas fa-smog"></i>'
+                    },
+                    51: {
+                        desc: 'Chuvisco leve',
+                        icon: '<i class="fas fa-cloud-rain"></i>'
+                    },
+                    53: {
+                        desc: 'Chuvisco moderado',
+                        icon: '<i class="fas fa-cloud-rain"></i>'
+                    },
+                    55: {
+                        desc: 'Chuvisco intenso',
+                        icon: '<i class="fas fa-cloud-rain"></i>'
+                    },
+                    61: {
+                        desc: 'Chuva leve',
+                        icon: '<i class="fas fa-umbrella"></i>'
+                    },
+                    63: {
+                        desc: 'Chuva moderada',
+                        icon: '<i class="fas fa-umbrella"></i>'
+                    },
+                    65: {
+                        desc: 'Chuva forte',
+                        icon: '<i class="fas fa-umbrella"></i>'
+                    },
+                    71: {
+                        desc: 'Neve leve',
+                        icon: '<i class="fas fa-snowflake"></i>'
+                    },
+                    73: {
+                        desc: 'Neve moderada',
+                        icon: '<i class="fas fa-snowflake"></i>'
+                    },
+                    75: {
+                        desc: 'Neve forte',
+                        icon: '<i class="fas fa-snowflake"></i>'
+                    },
+                    77: {
+                        desc: 'Grãos de neve',
+                        icon: '<i class="fas fa-snowflake"></i>'
+                    },
+                    80: {
+                        desc: 'Pancadas de chuva leves',
+                        icon: '<i class="fas fa-cloud-showers-heavy"></i>'
+                    },
+                    81: {
+                        desc: 'Pancadas de chuva moderadas',
+                        icon: '<i class="fas fa-cloud-showers-heavy"></i>'
+                    },
+                    82: {
+                        desc: 'Pancadas de chuva fortes',
+                        icon: '<i class="fas fa-cloud-showers-heavy"></i>'
+                    },
+                    85: {
+                        desc: 'Pancadas de neve leves',
+                        icon: '<i class="fas fa-snowflake"></i>'
+                    },
+                    86: {
+                        desc: 'Pancadas de neve fortes',
+                        icon: '<i class="fas fa-snowflake"></i>'
+                    },
+                    95: {
+                        desc: 'Trovoada',
+                        icon: '<i class="fas fa-bolt"></i>'
+                    },
+                    96: {
+                        desc: 'Trovoada com granizo leve',
+                        icon: '<i class="fas fa-bolt"></i>'
+                    },
+                    99: {
+                        desc: 'Trovoada com granizo forte',
+                        icon: '<i class="fas fa-bolt"></i>'
+                    }
+                };
+
+                const weatherInfo = weatherCodes[weatherCode] || {
+                    desc: 'Condição desconhecida',
+                    icon: '<i class="fas fa-question"></i>'
+                };
+
+                const weatherBox = document.getElementById('weather');
+                weatherBox.innerHTML = `
+                    <div class="weather-icon">${weatherInfo.icon}</div>
+                    <h2 id="cityName">${city}, ${state}</h2>
+                    <div class="weather-info">
+                        <p>${weatherInfo.desc}</p>
+                        <p><i class="fas fa-temperature-high"></i> ${temp}°C</p>
+                        <p><i class="fas fa-wind"></i> ${wind} km/h</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Erro ao buscar clima:', error);
+                document.getElementById('weather').innerHTML = `
+                    <div class="weather-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h2 id="cityName">Erro</h2>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+
+        // Gerenciamento do tema
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        // Carregar tema salvo ou usar preferência do sistema
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme('dark'); // Tema escuro como padrão
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Gerenciamento do motor de busca
+        const searchEngineSelector = document.getElementById('searchEngineSelector');
+        const searchEngineOptions = document.querySelectorAll('.search-engine-option');
+        const searchForm = document.getElementById('searchForm');
+        let currentEngine = 'google';
+
+        // Carregar motor de busca salvo
+        const savedEngine = localStorage.getItem('searchEngine');
+        if (savedEngine) {
+            currentEngine = savedEngine;
+            updateSearchEngineIcon();
+        }
+
+        function updateSearchEngineIcon() {
+            const icon = searchEngineSelector.querySelector('i');
+            const name = searchEngineSelector.querySelector('span');
+            const description = searchEngineSelector.querySelector('.description');
+
+            searchEngineOptions.forEach(option => {
+                if (option.dataset.engine === currentEngine) {
+                    icon.className = option.querySelector('i').className;
+                    name.textContent = option.querySelector('span').textContent;
+                    description.textContent = option.querySelector('.description').textContent;
+                    searchForm.action = option.dataset.action;
+                }
+            });
+        }
+
+        // Evento de clique nas opções
+        searchEngineOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                currentEngine = this.dataset.engine;
+                updateSearchEngineIcon();
+                localStorage.setItem('searchEngine', currentEngine);
+            });
+        });
+    </script>
 
 </body>
+
 </html>
