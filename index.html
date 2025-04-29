@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Comfy Homepage</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'><path fill='%23ffffff' d='M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z'/></svg>"
+        type="image/svg+xml">
     <style>
          :root {
             --background: #000000;
@@ -14,7 +16,7 @@
             --accent: #000000;
             --hover-glow: #ffffff;
             --input-background: #1a1a1a;
-            --user-glow: #00ff00;
+            --user-glow: #ffffff;
             --menu-background: #111111;
             --button-background: #222222;
             --button-text: #ffffff;
@@ -27,7 +29,7 @@
             --accent: #F3F0E8;
             --hover-glow: #000000;
             --input-background: #ffffff;
-            --user-glow: #00ff00;
+            --user-glow: #000000;
             --menu-background: #ffffff;
             --button-background: #f0f0f0;
             --button-text: #000000;
@@ -94,6 +96,19 @@
             color: var(--primary);
             margin-bottom: 1rem;
             text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         main {
@@ -254,13 +269,36 @@
             color: var(--primary);
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            z-index: 1000;
+            outline: none;
         }
         
         .settings-button:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 0 15px var(--hover-glow);
+            transform: scale(1.1);
+            outline: 2px solid var(--hover-glow);
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+        
+        .settings-button::before,
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: var(--hover-glow);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .settings-button:hover::before,
+        .theme-toggle:hover::before {
+            opacity: 0.1;
         }
         
         .settings-menu {
@@ -275,7 +313,7 @@
             box-shadow: var(--menu-shadow);
             flex-direction: column;
             gap: 1.5rem;
-            width: 500px;
+            width: 800px;
             max-width: 90vw;
             max-height: 80vh;
             overflow-y: auto;
@@ -433,17 +471,6 @@
             width: auto;
         }
         
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
         @keyframes menuSlideIn {
             from {
                 opacity: 0;
@@ -499,24 +526,325 @@
             color: var(--primary);
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
+            outline: none;
         }
         
         .theme-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 15px var(--hover-glow);
+            outline: 2px solid var(--hover-glow);
+            outline-offset: 2px;
+            box-shadow: none;
         }
         
-        .theme-toggle i {
+        .credits-content {
+            background-color: var(--button-background);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+        
+        .credits-content p {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        
+        .credits-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .credits-content li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .credits-link {
+            color: var(--hover-glow);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .credits-link:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+        
+        .menu-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--button-background);
+            padding-bottom: 0.5rem;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--hover-glow);
+            transform: scaleX(0);
             transition: transform 0.3s ease;
         }
         
-        .theme-toggle:hover i {
-            transform: rotate(180deg);
+        .tab-button.active {
+            color: var(--hover-glow);
+        }
+        
+        .tab-button.active::after {
+            transform: scaleX(1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .donations-section {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--button-background);
+        }
+        
+        .donations-section p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .donations-section .fa-heart {
+            color: #ff4d4d;
+        }
+        
+        .crypto-addresses {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .crypto-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background-color: var(--button-background);
+            padding: 1rem;
+            border-radius: 8px;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .crypto-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .solana-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-bottom: 0.5rem;
+            fill: var(--primary);
+        }
+        
+        .crypto-name {
+            font-weight: 600;
+            color: var(--hover-glow);
+        }
+        
+        .address-container {
+            display: flex;
+            align-items: center;
+            background-color: var(--input-background);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .address-container:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .crypto-address {
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: var(--primary);
+        }
+        
+        .crypto-address.copied {
+            color: #00ff00;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background-color: var(--button-background);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+            pointer-events: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .notification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            z-index: -1;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification.hide {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-100px);
+        }
+        
+        .notification.success::before {
+            content: '✓';
+            margin-right: 0.5rem;
+            color: #4CAF50;
+        }
+        
+        .notification.error::before {
+            content: '✕';
+            margin-right: 0.5rem;
+            color: #f44336;
+        }
+        
+        .notification.info::before {
+            content: 'ℹ';
+            margin-right: 0.5rem;
+            color: #2196F3;
+        }
+        
+        .image-preview-container {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--button-background);
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .image-preview-container img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            display: none;
+        }
+        
+        .image-preview-container::before {
+            content: 'Preview';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary);
+            opacity: 0.5;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .image-preview-container:empty::before {
+            display: block;
+        }
+        
+        .image-size-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .image-size-controls label {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .image-size-controls input {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--button-background);
+            color: var(--button-text);
+            border: none;
+            border-radius: 4px;
+        }
+        
+        .custom-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+        
+        .upload-info {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .privacy-notice {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .privacy-notice i {
+            color: var(--hover-glow);
         }
     </style>
 </head>
@@ -533,7 +861,7 @@
     <main>
         <!-- Search Bar Google -->
         <form class="search-bar" id="searchForm" action="https://www.google.com/search" method="get" target="_blank">
-            <input type="text" name="q" placeholder="Pesquisar no Google..." id="searchInput" required>
+            <input type="text" name="q" placeholder="Pesquisar" id="searchInput" required>
             <button type="submit" title="Buscar texto"><i class="fas fa-search"></i></button>
             <button type="button" id="imageSearch" title="Buscar imagem"><i class="fas fa-image"></i></button>
         </form>
@@ -551,7 +879,7 @@
     </main>
 
     <footer>
-        <p>dxppwr - 2025</p>
+        <p>© dxppwr</p>
     </footer>
 
     <!-- Settings Button -->
@@ -564,14 +892,49 @@
 
     <!-- Settings Menu -->
     <div class="settings-menu" id="settingsMenu">
-        <div class="settings-section">
-            <h3>User</h3>
-            <input type="text" id="username" placeholder="Insira seu nome (User)">
+        <div class="menu-tabs">
+            <button class="tab-button active" data-tab="edit">EDIT</button>
+            <button class="tab-button" data-tab="links">LINKS</button>
+            <button class="tab-button" data-tab="image">IMAGEM</button>
+            <button class="tab-button" data-tab="credit">CREDIT</button>
         </div>
 
-        <div class="settings-section">
-            <h3>Cidade</h3>
-            <select id="state" class="settings-input">
+        <div class="tab-content active" id="edit-tab">
+            <div class="settings-section">
+                <h3>Title</h3>
+                <input type="text" id="pageTitle" placeholder="Insira o título da página">
+            </div>
+
+            <div class="settings-section">
+                <h3>Language / Idioma</h3>
+                <select id="language" class="settings-input">
+                    <option value="pt-BR">Português (Brasil)</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+
+            <div class="settings-section">
+                <h3>Nome</h3>
+                <input type="text" id="username" placeholder="Insira seu nome">
+            </div>
+
+            <div class="settings-section">
+                <h3>Search Engine</h3>
+                <select id="searchEngine" class="settings-input">
+                    <option value="google">Google (Padrão)</option>
+                    <option value="duckduckgo">DuckDuckGo (Privacidade)</option>
+                    <option value="brave">Brave Search (Descentralizada)</option>
+                    <option value="kagi">Kagi (IA Avançada)</option>
+                    <option value="presearch">Presearch (Blockchain)</option>
+                    <option value="you">You.com (Personalizada)</option>
+                    <option value="mojeek">Mojeek (Independente)</option>
+                </select>
+            </div>
+
+            <div class="settings-section">
+                <h3>Cidade</h3>
+                <select id="state" class="settings-input">
                 <option value="">Selecione um estado</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -601,24 +964,104 @@
                 <option value="SE">Sergipe</option>
                 <option value="TO">Tocantins</option>
             </select>
-            <select id="city" class="settings-input" disabled>
+                <select id="city" class="settings-input" disabled>
                 <option value="">Selecione uma cidade</option>
             </select>
+            </div>
+
+            <button id="saveSettingsBtn"><i class="fas fa-save"></i> Salvar Configurações</button>
+            <button id="clearSettingsBtn"><i class="fas fa-trash"></i> Limpar Informações</button>
         </div>
 
-        <div class="settings-section">
-            <h3>Links</h3>
-            <input type="text" id="linkName" placeholder="Nome do link">
-            <input type="text" id="link" placeholder="Inserir link">
-            <button id="addLinkBtn">Adicionar Link</button>
-            <div class="links-list" id="linksList">
-                <!-- Links serão adicionados aqui -->
+        <div class="tab-content" id="links-tab">
+            <div class="settings-section">
+                <h3>Gerenciar Links</h3>
+                <input type="text" id="linkName" placeholder="Nome do link">
+                <input type="text" id="link" placeholder="Inserir link">
+                <button id="addLinkBtn">Adicionar Link</button>
+                <button id="clearLinksBtn"><i class="fas fa-trash"></i> Limpar Links</button>
+                <div class="links-list" id="linksList">
+                    <!-- Links serão adicionados aqui -->
+                </div>
             </div>
         </div>
 
-        <button id="saveSettingsBtn"><i class="fas fa-save"></i> Salvar Configurações</button>
-        <button id="clearSettingsBtn"><i class="fas fa-trash"></i> Limpar Informações</button>
+        <div class="tab-content" id="image-tab">
+            <div class="settings-section">
+                <h3>Imagem Personalizada</h3>
+                <p class="upload-info">Faça o upload de sua imagem ou GIF para personalizar sua página inicial.</p>
+                <input type="file" id="imageUpload" accept="image/*,.gif" class="settings-input">
+                <div class="image-preview-container" id="imagePreviewContainer">
+                    <img id="imagePreview" src="" alt="Preview">
+                </div>
+                <div class="image-size-controls">
+                    <label for="imageWidth">Largura (px):</label>
+                    <input type="number" id="imageWidth" class="settings-input" min="100" max="1000" value="500">
+                    <label for="imageHeight">Altura (px):</label>
+                    <input type="number" id="imageHeight" class="settings-input" min="100" max="1000" value="300">
+                </div>
+                <button id="saveImageBtn"><i class="fas fa-save"></i> Salvar Imagem</button>
+                <button id="removeImageBtn"><i class="fas fa-trash"></i> Remover Imagem</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="credit-tab">
+            <div class="credits-content">
+                <p>Comfy Homepage é um projeto open-source desenvolvido por <a href="https://github.com/dxppwr" target="_blank" class="credits-link">@dxppwr</a>, oferecendo uma experiência de navegação moderna e personalizável.</p>
+                <p>O código-fonte está disponível em: <a href="https://github.com/dxppwr/home" target="_blank" class="credits-link">github.com/dxppwr/home</a></p>
+                <p class="privacy-notice"><i class="fas fa-shield-alt"></i> Privacidade: Este projeto não salva nenhuma informação pessoal inserida pelo usuário. Todos os dados são armazenados localmente no seu navegador e podem ser removidos a qualquer momento.</p>
+                <p>Desenvolvido com tecnologias web modernas:</p>
+                <ul>
+                    <li>HTML5 para estrutura semântica</li>
+                    <li>CSS3 com variáveis personalizadas e animações suaves</li>
+                    <li>JavaScript puro (Vanilla JS) para interatividade</li>
+                    <li>APIs RESTful para integração com serviços externos</li>
+                    <li>LocalStorage para persistência de dados</li>
+                </ul>
+                <p>Recursos e personalizações disponíveis:</p>
+                <ul>
+                    <li>Múltiplos motores de busca (Google, DuckDuckGo, Brave, Kagi, etc.)</li>
+                    <li>Pesquisa por imagem com suporte a upload e colagem</li>
+                    <li>Previsão do tempo em tempo real</li>
+                    <li>Links personalizáveis com gerenciamento intuitivo</li>
+                    <li>Tema claro/escuro com detecção automática</li>
+                    <li>Suporte a múltiplos idiomas (Português, Inglês, Espanhol)</li>
+                    <li>Interface responsiva e adaptável</li>
+                </ul>
+                <p>Este projeto é mantido com carinho e dedicação. Se você gostou e quer apoiar o desenvolvimento, doações são muito bem-vindas! <i class="fas fa-heart"></i></p>
+
+                <div class="donations-section">
+                    <div class="crypto-addresses">
+                        <div class="crypto-item">
+                            <i class="fab fa-bitcoin"></i>
+                            <span class="crypto-name">Bitcoin</span>
+                            <div class="address-container">
+                                <span class="crypto-address" data-address="bc1q4dqxyjh0n92lmsqx5dhrq84wq8a5vyvz32lmgw">bc1q4dqxyjh0n92lmsqx5dhrq84wq8a5vyvz32lmgw</span>
+                            </div>
+                        </div>
+                        <div class="crypto-item">
+                            <i class="fab fa-ethereum"></i>
+                            <span class="crypto-name">Ethereum</span>
+                            <div class="address-container">
+                                <span class="crypto-address" data-address="0x54671685E92D87307a7491259bBfaa939b86Edbe">0x54671685E92D87307a7491259bBfaa939b86Edbe</span>
+                            </div>
+                        </div>
+                        <div class="crypto-item">
+                            <svg class="solana-icon" viewBox="0 0 397.7 311.7" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zM64.6 3.8C67 1.4 70.3 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8zM333.1 120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z"/>
+                            </svg>
+                            <span class="crypto-name">Solana</span>
+                            <div class="address-container">
+                                <span class="crypto-address" data-address="86NhdhcoEzLwTsv51q3NwGwn6EcZU9D6CMqfoTCS29Hh">86NhdhcoEzLwTsv51q3NwGwn6EcZU9D6CMqfoTCS29Hh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="notification" id="copyNotification">Copiado!</div>
 
     <script>
         function updateDatetime() {
@@ -639,7 +1082,11 @@
             document.getElementById('datetime').textContent = dateStr;
         }
 
-        setInterval(updateDatetime, 1000); // Atualiza a cada segundo
+        // Inicializar a data/hora com animação
+        window.addEventListener('load', () => {
+            updateDatetime();
+            setInterval(updateDatetime, 1000);
+        });
 
         const stateSelect = document.getElementById('state');
         const citySelect = document.getElementById('city');
@@ -713,14 +1160,24 @@
         });
 
         // Carregar dados do localStorage
-        window.onload = async() => {
+        window.addEventListener('load', async() => {
             const storedUsername = localStorage.getItem('username');
             const storedCity = localStorage.getItem('city');
             const storedState = localStorage.getItem('state');
+            const storedTitle = localStorage.getItem('pageTitle');
+            const isCleared = localStorage.getItem('cleared') === 'true';
             let storedLinks = JSON.parse(localStorage.getItem('links')) || [];
 
-            // Adicionar links padrão se não houver links salvos
-            if (storedLinks.length === 0) {
+            // Verificar se é a primeira visita (nenhum dado salvo)
+            const isFirstVisit = !storedUsername && !storedCity && !storedState && !storedTitle && !storedLinks.length && !isCleared;
+
+            // Se for primeira visita, abrir o menu de configurações
+            if (isFirstVisit) {
+                settingsMenu.style.display = 'flex';
+            }
+
+            // Adicionar links padrão apenas se não houver links salvos e não estiver em modo de limpeza
+            if (storedLinks.length === 0 && !isCleared) {
                 storedLinks = [{
                     linkName: 'ChatGPT',
                     link: 'https://chat.openai.com/'
@@ -752,8 +1209,13 @@
                 localStorage.setItem('links', JSON.stringify(storedLinks));
             }
 
+            if (storedTitle) {
+                document.title = storedTitle;
+                document.getElementById('pageTitle').value = storedTitle;
+            }
+
             if (storedUsername) {
-                welcomeMessage.innerHTML = `Welcome, <span class="welcome">${storedUsername}</span>`;
+                welcomeMessage.innerHTML = `Olá, <span class="welcome">${storedUsername}</span>`;
                 document.getElementById('username').value = storedUsername;
             }
 
@@ -765,7 +1227,7 @@
             }
 
             updateMainLinks();
-        };
+        });
 
         function updateLinksList() {
             linksList.innerHTML = '';
@@ -783,62 +1245,6 @@
                 `;
                 linksList.appendChild(linkItem);
             });
-
-            // Adicionar eventos para os botões de edição e exclusão
-            document.querySelectorAll('.edit-link').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const index = e.target.dataset.index;
-                    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
-                    const link = storedLinks[index];
-
-                    const editForm = document.createElement('div');
-                    editForm.className = 'edit-link-inputs';
-                    editForm.innerHTML = `
-                        <input type="text" class="edit-link-name" value="${link.linkName}" placeholder="Novo nome">
-                        <input type="text" class="edit-link-url" value="${link.link}" placeholder="Nova URL">
-                        <button class="save-edit" data-index="${index}"><i class="fas fa-save"></i></button>
-                    `;
-
-                    const linkItem = e.target.closest('.link-item');
-                    linkItem.appendChild(editForm);
-
-                    // Esconder os botões de ação durante a edição
-                    linkItem.querySelector('.link-actions').style.display = 'none';
-                });
-            });
-
-            document.querySelectorAll('.save-edit').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const index = e.target.dataset.index;
-                    const linkItem = e.target.closest('.link-item');
-                    const newName = linkItem.querySelector('.edit-link-name').value;
-                    const newUrl = linkItem.querySelector('.edit-link-url').value;
-
-                    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
-                    storedLinks[index] = {
-                        linkName: newName,
-                        link: newUrl
-                    };
-                    localStorage.setItem('links', JSON.stringify(storedLinks));
-
-                    // Atualizar a lista e os links na página principal
-                    updateLinksList();
-                    updateMainLinks();
-                });
-            });
-
-            document.querySelectorAll('.delete-link').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const index = e.target.dataset.index;
-                    const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
-                    storedLinks.splice(index, 1);
-                    localStorage.setItem('links', JSON.stringify(storedLinks));
-
-                    // Atualizar a lista e os links na página principal
-                    updateLinksList();
-                    updateMainLinks();
-                });
-            });
         }
 
         function updateMainLinks() {
@@ -854,10 +1260,69 @@
         }
 
         // Atualizar a lista de links quando o menu é aberto
-        settingsBtn.addEventListener('click', () => {
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event bubbling
             settingsMenu.style.display = settingsMenu.style.display === 'flex' ? 'none' : 'flex';
             if (settingsMenu.style.display === 'flex') {
                 updateLinksList();
+            }
+        });
+
+        // Prevent menu from closing when clicking inside it
+        settingsMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (settingsMenu.style.display === 'flex' &&
+                !settingsMenu.contains(e.target) &&
+                e.target !== settingsBtn) {
+                settingsMenu.style.display = 'none';
+            }
+        });
+
+        // Use event delegation for link actions
+        linksList.addEventListener('click', (e) => {
+            const target = e.target;
+            const button = target.closest('button');
+            if (!button) return;
+
+            const linkItem = button.closest('.link-item');
+            const index = button.dataset.index;
+            const storedLinks = JSON.parse(localStorage.getItem('links')) || [];
+
+            if (button.classList.contains('edit-link')) {
+                const link = storedLinks[index];
+                const editForm = document.createElement('div');
+                editForm.className = 'edit-link-inputs';
+                editForm.innerHTML = `
+                        <input type="text" class="edit-link-name" value="${link.linkName}" placeholder="Novo nome">
+                        <input type="text" class="edit-link-url" value="${link.link}" placeholder="Nova URL">
+                        <button class="save-edit" data-index="${index}"><i class="fas fa-save"></i></button>
+                    `;
+
+                linkItem.appendChild(editForm);
+                linkItem.querySelector('.link-actions').style.display = 'none';
+            } else if (button.classList.contains('save-edit')) {
+                const newName = linkItem.querySelector('.edit-link-name').value;
+                const newUrl = linkItem.querySelector('.edit-link-url').value;
+
+                storedLinks[index] = {
+                    linkName: newName,
+                    link: newUrl
+                };
+                localStorage.setItem('links', JSON.stringify(storedLinks));
+
+                updateLinksList();
+                updateMainLinks();
+            } else if (button.classList.contains('delete-link')) {
+                if (confirm('Tem certeza que deseja excluir este link?')) {
+                    storedLinks.splice(index, 1);
+                    localStorage.setItem('links', JSON.stringify(storedLinks));
+                    updateLinksList();
+                    updateMainLinks();
+                }
             }
         });
 
@@ -988,23 +1453,318 @@
             }
         });
 
-        // Adicionar validação ao campo de cidade
-        document.getElementById('city').addEventListener('input', function(e) {
-            const cityFormat = /^[A-Za-zÀ-ÿ\s]+,(?:AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)$/;
-            if (this.value && !cityFormat.test(this.value)) {
-                this.setCustomValidity('Use o formato: Cidade,UF (exemplo: Campinas,SP)');
-            } else {
-                this.setCustomValidity('');
+        // Search functionality
+        const searchEngines = {
+            google: {
+                url: 'https://www.google.com/search',
+                param: 'q',
+                name: 'Google'
+            },
+            duckduckgo: {
+                url: 'https://duckduckgo.com/',
+                param: 'q',
+                name: 'DuckDuckGo'
+            },
+            brave: {
+                url: 'https://search.brave.com/search',
+                param: 'q',
+                name: 'Brave Search'
+            },
+            kagi: {
+                url: 'https://kagi.com/search',
+                param: 'q',
+                name: 'Kagi'
+            },
+            presearch: {
+                url: 'https://presearch.com/search',
+                param: 'q',
+                name: 'Presearch'
+            },
+            you: {
+                url: 'https://you.com/search',
+                param: 'q',
+                name: 'You.com'
+            },
+            mojeek: {
+                url: 'https://www.mojeek.com/search',
+                param: 'q',
+                name: 'Mojeek'
+            }
+        };
+
+        // Update search form based on selected engine
+        function updateSearchForm() {
+            const selectedEngine = localStorage.getItem('searchEngine') || 'google';
+            const searchForm = document.getElementById('searchForm');
+            const engine = searchEngines[selectedEngine];
+
+            searchForm.action = engine.url;
+            const searchInput = document.getElementById('searchInput');
+            searchInput.name = engine.param;
+            searchInput.placeholder = `Pesquisar no ${engine.name}`;
+            document.getElementById('searchEngine').value = selectedEngine;
+        }
+
+        // Load saved search engine
+        window.addEventListener('load', () => {
+            const storedEngine = localStorage.getItem('searchEngine');
+            if (storedEngine) {
+                document.getElementById('searchEngine').value = storedEngine;
+                updateSearchForm();
             }
         });
 
-        saveSettingsBtn.addEventListener('click', () => {
+        // Save search engine preference
+        document.getElementById('searchEngine').addEventListener('change', (e) => {
+            localStorage.setItem('searchEngine', e.target.value);
+            updateSearchForm();
+        });
+
+        // Language translations
+        const translations = {
+            'pt-BR': {
+                welcome: 'Olá',
+                title: 'Título',
+                titlePlaceholder: 'Insira o título da página',
+                language: 'Idioma',
+                name: 'Nome',
+                namePlaceholder: 'Insira seu nome',
+                city: 'Cidade',
+                selectState: 'Selecione um estado',
+                selectCity: 'Selecione uma cidade',
+                searchPlaceholder: 'Pesquisar no',
+                manageLinks: 'Gerenciar Links',
+                linkName: 'Nome do link',
+                linkUrl: 'Inserir link',
+                addLink: 'Adicionar Link',
+                saveSettings: 'Salvar Configurações',
+                clearSettings: 'Limpar Informações',
+                copied: 'Copiado!',
+                cityNotSet: 'Cidade não definida',
+                about: 'Comfy Homepage é um projeto pessoal desenvolvido por',
+                feature1: 'Pesquisa rápida',
+                feature2: 'Pesquisa por imagem',
+                feature3: 'Previsão do tempo',
+                feature4: 'Links personalizados',
+                feature5: 'Tema claro/escuro',
+                donations: 'Doações são bem-vindas!',
+                edit: 'EDITAR',
+                links: 'LINKS',
+                credit: 'CRÉDITOS',
+                searchEngine: 'Motor de Busca',
+                image: 'IMAGEM',
+                customImage: 'Imagem Personalizada',
+                imageWidth: 'Largura (px)',
+                imageHeight: 'Altura (px)',
+                saveImage: 'Salvar Imagem',
+                removeImage: 'Remover Imagem',
+                removeImageConfirm: 'Tem certeza que deseja remover a imagem?',
+                savedSuccess: 'Salvo com sucesso!',
+                clearedSuccess: 'Informações limpas com sucesso!',
+                imageRemoved: 'Imagem removida com sucesso!',
+                linksCleared: 'Links limpos com sucesso!',
+                clearLinksConfirm: 'Tem certeza que deseja limpar todos os links?',
+                clearLinks: 'Limpar Links'
+            },
+            'en': {
+                welcome: 'Welcome',
+                title: 'Title',
+                titlePlaceholder: 'Enter page title',
+                language: 'Language',
+                name: 'Name',
+                namePlaceholder: 'Enter your name',
+                city: 'City',
+                selectState: 'Select a state',
+                selectCity: 'Select a city',
+                searchPlaceholder: 'Search on',
+                manageLinks: 'Manage Links',
+                linkName: 'Link name',
+                linkUrl: 'Enter link',
+                addLink: 'Add Link',
+                saveSettings: 'Save Settings',
+                clearSettings: 'Clear Settings',
+                copied: 'Copied!',
+                cityNotSet: 'City not set',
+                about: 'Minimal Home is a personal project developed by',
+                features: 'A minimalist and customizable homepage that offers:',
+                feature1: 'Quick search',
+                feature2: 'Image search',
+                feature3: 'Weather forecast',
+                feature4: 'Custom links',
+                feature5: 'Light/dark theme',
+                donations: 'Donations are welcome!',
+                edit: 'EDIT',
+                links: 'LINKS',
+                credit: 'CREDIT',
+                searchEngine: 'Search Engine',
+                image: 'IMAGE',
+                customImage: 'Custom Image',
+                imageWidth: 'Width (px)',
+                imageHeight: 'Height (px)',
+                saveImage: 'Save Image',
+                removeImage: 'Remove Image',
+                removeImageConfirm: 'Are you sure you want to remove the image?',
+                savedSuccess: 'Saved successfully!',
+                clearedSuccess: 'Information cleared successfully!',
+                imageRemoved: 'Image removed successfully!',
+                linksCleared: 'Links cleared successfully!',
+                clearLinksConfirm: 'Are you sure you want to clear all links?',
+                clearLinks: 'Clear Links'
+            },
+            'es': {
+                welcome: 'Hola',
+                title: 'Título',
+                titlePlaceholder: 'Ingrese el título de la página',
+                language: 'Idioma',
+                name: 'Nombre',
+                namePlaceholder: 'Ingrese su nombre',
+                city: 'Ciudad',
+                selectState: 'Seleccione un estado',
+                selectCity: 'Seleccione una ciudad',
+                searchPlaceholder: 'Buscar en',
+                manageLinks: 'Administrar Enlaces',
+                linkName: 'Nombre del enlace',
+                linkUrl: 'Insertar enlace',
+                addLink: 'Agregar Enlace',
+                saveSettings: 'Guardar Configuración',
+                clearSettings: 'Borrar Información',
+                copied: '¡Copiado!',
+                cityNotSet: 'Ciudad no definida',
+                about: 'Minimal Home es un proyecto personal desarrollado por',
+                features: 'Una página de inicio minimalista y personalizable que ofrece:',
+                feature1: 'Búsqueda rápida',
+                feature2: 'Búsqueda por imagen',
+                feature3: 'Pronóstico del tiempo',
+                feature4: 'Enlaces personalizados',
+                feature5: 'Tema claro/oscuro',
+                donations: '¡Las donaciones son bienvenidas!',
+                edit: 'EDITAR',
+                links: 'ENLACES',
+                credit: 'CRÉDITOS',
+                searchEngine: 'Motor de Búsqueda',
+                image: 'IMAGEN',
+                customImage: 'Imagen Personalizada',
+                imageWidth: 'Ancho (px)',
+                imageHeight: 'Alto (px)',
+                saveImage: 'Guardar Imagen',
+                removeImage: 'Eliminar Imagen',
+                removeImageConfirm: '¿Está seguro de que desea eliminar la imagen?',
+                savedSuccess: '¡Guardado con éxito!',
+                clearedSuccess: '¡Información borrada con éxito!',
+                imageRemoved: '¡Imagen eliminada con éxito!',
+                linksCleared: '¡Enlaces borrados con éxito!',
+                clearLinksConfirm: '¿Está seguro de que desea borrar todos los enlaces?',
+                clearLinks: 'Borrar Enlaces'
+            }
+        };
+
+        // Function to update page language
+        function updateLanguage(lang) {
+            const currentLang = lang || localStorage.getItem('language') || navigator.language || 'pt-BR';
+            const texts = translations[currentLang] || translations['pt-BR'];
+
+            // Update all text elements
+            document.getElementById('language').value = currentLang;
+
+            // Update welcome message
+            const username = localStorage.getItem('username');
+            if (username) {
+                welcomeMessage.innerHTML = `${texts.welcome}, <span class="welcome">${username}</span>`;
+            } else {
+                welcomeMessage.innerHTML = `${texts.welcome}!`;
+            }
+
+            // Update menu items and titles
+            const titleElements = document.querySelectorAll('.settings-section h3');
+            titleElements.forEach(el => {
+                if (el.textContent.includes('Title')) el.textContent = texts.title;
+                if (el.textContent.includes('Language')) el.textContent = texts.language;
+                if (el.textContent.includes('Nome')) el.textContent = texts.name;
+                if (el.textContent.includes('Cidade')) el.textContent = texts.city;
+                if (el.textContent.includes('Search')) el.textContent = 'Search Engine';
+                if (el.textContent.includes('Gerenciar')) el.textContent = texts.manageLinks;
+            });
+
+            // Update menu tabs
+            document.querySelector('.tab-button[data-tab="edit"]').textContent = texts.edit;
+            document.querySelector('.tab-button[data-tab="links"]').textContent = texts.links;
+            document.querySelector('.tab-button[data-tab="credit"]').textContent = texts.credit;
+            document.querySelector('.tab-button[data-tab="image"]').textContent = texts.image;
+
+            // Update placeholders
+            document.getElementById('pageTitle').placeholder = texts.titlePlaceholder;
+            document.getElementById('username').placeholder = texts.namePlaceholder;
+            document.getElementById('linkName').placeholder = texts.linkName;
+            document.getElementById('link').placeholder = texts.linkUrl;
+            document.getElementById('searchInput').placeholder = `${texts.searchPlaceholder} ${searchEngines[localStorage.getItem('searchEngine') || 'google'].name}`;
+
+            // Update select elements
+            const stateSelect = document.getElementById('state');
+            const citySelect = document.getElementById('city');
+            if (stateSelect.firstElementChild) stateSelect.firstElementChild.textContent = texts.selectState;
+            if (citySelect.firstElementChild) citySelect.firstElementChild.textContent = texts.selectCity;
+
+            // Update buttons
+            document.getElementById('addLinkBtn').textContent = texts.addLink;
+            document.getElementById('saveSettingsBtn').innerHTML = `<i class="fas fa-save"></i> ${texts.saveSettings}`;
+            document.getElementById('clearSettingsBtn').innerHTML = `<i class="fas fa-trash"></i> ${texts.clearSettings}`;
+            document.getElementById('copyNotification').textContent = texts.copied;
+
+            // Update credits section
+            const creditsContent = document.querySelector('.credits-content');
+            const aboutText = creditsContent.querySelector('p:first-child');
+            aboutText.innerHTML = `${texts.about} <a href="https://github.com/dxppwr" target="_blank" class="credits-link">@dxppwr</a>.`;
+
+            const featuresText = creditsContent.querySelector('p:nth-child(2)');
+            featuresText.textContent = texts.features;
+
+            const featuresList = creditsContent.querySelector('ul').children;
+            featuresList[0].textContent = texts.feature1;
+            featuresList[1].textContent = texts.feature2;
+            featuresList[2].textContent = texts.feature3;
+            featuresList[3].textContent = texts.feature4;
+            featuresList[4].textContent = texts.feature5;
+
+            // Update donations text
+            const donationsText = document.querySelector('.donations-section p');
+            donationsText.innerHTML = `${texts.donations} <i class="fas fa-heart"></i>`;
+
+            localStorage.setItem('language', currentLang);
+        }
+
+        // Initialize language on page load
+        window.addEventListener('load', () => {
+            const storedLang = localStorage.getItem('language');
+            if (storedLang) {
+                updateLanguage(storedLang);
+            } else {
+                updateLanguage(navigator.language);
+            }
+        });
+
+        // Language change event
+        document.getElementById('language').addEventListener('change', (e) => {
+            updateLanguage(e.target.value);
+        });
+
+        // Update save settings function
+        saveSettingsBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevenir comportamento padrão do botão
             const username = document.getElementById('username').value;
             const city = citySelect.value;
             const state = stateSelect.value;
+            const pageTitle = document.getElementById('pageTitle').value;
+            const searchEngine = document.getElementById('searchEngine').value;
+            const language = document.getElementById('language').value;
+
+            if (pageTitle) {
+                document.title = pageTitle;
+                localStorage.setItem('pageTitle', pageTitle);
+            }
 
             if (username) {
-                welcomeMessage.innerHTML = `Welcome, <span class="welcome">${username}</span>`;
+                const texts = translations[language];
+                welcomeMessage.innerHTML = `${texts.welcome}, <span class="welcome">${username}</span>`;
                 localStorage.setItem('username', username);
             }
 
@@ -1014,26 +1774,51 @@
                 localStorage.setItem('state', state);
             }
 
+            localStorage.setItem('searchEngine', searchEngine);
+            localStorage.setItem('language', language);
+            updateSearchForm();
+            updateLanguage(language);
+
+            const currentLang = localStorage.getItem('language') || 'pt-BR';
+            showNotification(translations[currentLang].savedSuccess);
             closeSettingsMenu();
         });
 
         clearSettingsBtn.addEventListener('click', () => {
-            if (confirm('Tem certeza que deseja limpar todas as informações salvas?')) {
-                localStorage.removeItem('username');
-                localStorage.removeItem('city');
-                localStorage.removeItem('state');
-                localStorage.removeItem('links');
+            const currentLang = localStorage.getItem('language') || 'pt-BR';
+            if (confirm(translations[currentLang].clearSettingsConfirm)) {
+                // Remover todos os dados do localStorage
+                localStorage.clear();
+                // Marcar que os dados foram limpos
+                localStorage.setItem('cleared', 'true');
 
+                // Resetar todos os campos e elementos
                 welcomeMessage.innerHTML = 'Welcome!';
                 cityName.innerHTML = 'Cidade não definida';
                 linksContainer.innerHTML = '';
                 document.getElementById('username').value = '';
+                document.getElementById('pageTitle').value = '';
+                document.title = 'Comfy Homepage';
                 stateSelect.value = '';
                 citySelect.value = '';
                 citySelect.disabled = true;
+                document.getElementById('searchEngine').value = 'google';
+                updateSearchForm();
 
+                // Remover a imagem personalizada
+                const mainImage = document.getElementById('mainCustomImage');
+                if (mainImage) {
+                    mainImage.remove();
+                }
+                imagePreview.src = '';
+                imagePreview.style.display = 'none';
+                imageWidth.value = '500';
+                imageHeight.value = '300';
+
+                // Atualizar a lista de links vazia
                 updateLinksList();
                 closeSettingsMenu();
+                showNotification(translations[currentLang].clearedSuccess);
             }
         });
 
@@ -1193,7 +1978,6 @@
 
         // Gerenciamento do tema
         const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
@@ -1215,6 +1999,180 @@
         }
 
         themeToggle.addEventListener('click', toggleTheme);
+
+        // Add tab switching functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(`${button.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+
+        // Add copy functionality for crypto addresses
+        const copyNotification = document.getElementById('copyNotification');
+
+        document.querySelectorAll('.crypto-address').forEach(address => {
+            address.addEventListener('click', async() => {
+                try {
+                    await navigator.clipboard.writeText(address.dataset.address);
+                    const currentLang = localStorage.getItem('language') || 'pt-BR';
+                    showNotification(translations[currentLang].copied);
+                } catch (err) {
+                    console.error('Failed to copy address:', err);
+                    const currentLang = localStorage.getItem('language') || 'pt-BR';
+                    showNotification('Erro ao copiar', 'error');
+                }
+            });
+        });
+
+        // Adicionar funcionalidade da aba de imagem
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imageWidth = document.getElementById('imageWidth');
+        const imageHeight = document.getElementById('imageHeight');
+        const saveImageBtn = document.getElementById('saveImageBtn');
+        const removeImageBtn = document.getElementById('removeImageBtn');
+
+        // Carregar imagem salva
+        window.addEventListener('load', () => {
+            const savedImage = localStorage.getItem('customImage');
+            const savedWidth = localStorage.getItem('imageWidth');
+            const savedHeight = localStorage.getItem('imageHeight');
+
+            if (savedImage) {
+                imagePreview.src = savedImage;
+                imagePreview.style.display = 'block';
+                if (savedWidth) imageWidth.value = savedWidth;
+                if (savedHeight) imageHeight.value = savedHeight;
+                updateMainImage();
+            }
+        });
+
+        // Preview da imagem ao selecionar
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Atualizar imagem principal
+        function updateMainImage() {
+            const mainImage = document.getElementById('mainCustomImage');
+            if (mainImage) {
+                mainImage.remove();
+            }
+
+            const savedImage = localStorage.getItem('customImage');
+            if (savedImage) {
+                const img = document.createElement('img');
+                img.id = 'mainCustomImage';
+                img.className = 'custom-image';
+                img.src = savedImage;
+                img.style.width = `${localStorage.getItem('imageWidth')}px`;
+                img.style.height = `${localStorage.getItem('imageHeight')}px`;
+                document.querySelector('main').insertBefore(img, document.querySelector('.search-bar'));
+            }
+        }
+
+        // Salvar imagem
+        saveImageBtn.addEventListener('click', () => {
+            if (imagePreview.src) {
+                localStorage.setItem('customImage', imagePreview.src);
+                localStorage.setItem('imageWidth', imageWidth.value);
+                localStorage.setItem('imageHeight', imageHeight.value);
+                updateMainImage();
+                closeSettingsMenu();
+            }
+        });
+
+        // Remover imagem
+        removeImageBtn.addEventListener('click', () => {
+            const currentLang = localStorage.getItem('language') || 'pt-BR';
+            if (confirm(translations[currentLang].removeImageConfirm)) {
+                localStorage.removeItem('customImage');
+                localStorage.removeItem('imageWidth');
+                localStorage.removeItem('imageHeight');
+                imagePreview.src = '';
+                imagePreview.style.display = 'none';
+                imageWidth.value = '500';
+                imageHeight.value = '300';
+                const mainImage = document.getElementById('mainCustomImage');
+                if (mainImage) {
+                    mainImage.remove();
+                }
+                showNotification(translations[currentLang].imageRemoved);
+            }
+        });
+
+        // Atualizar preview ao mudar tamanho
+        imageWidth.addEventListener('input', () => {
+            if (imagePreview.src) {
+                imagePreview.style.width = `${imageWidth.value}px`;
+            }
+        });
+
+        imageHeight.addEventListener('input', () => {
+            if (imagePreview.src) {
+                imagePreview.style.height = `${imageHeight.value}px`;
+            }
+        });
+
+        // Adicionar botão para limpar links
+        const clearLinksBtn = document.getElementById('clearLinksBtn');
+        clearLinksBtn.addEventListener('click', () => {
+            const currentLang = localStorage.getItem('language') || 'pt-BR';
+            if (confirm(translations[currentLang].clearLinksConfirm)) {
+                localStorage.removeItem('links');
+                updateLinksList();
+                updateMainLinks();
+                showNotification(translations[currentLang].linksCleared);
+            }
+        });
+
+        // Função para mostrar notificação
+        function showNotification(message) {
+            let notification = document.getElementById('copyNotification');
+
+            // Se já existe uma notificação, remova-a
+            if (notification) {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.remove();
+                }, 400); // Tempo da animação
+            }
+
+            // Crie uma nova notificação
+            notification = document.createElement('div');
+            notification.id = 'copyNotification';
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Forçar reflow e mostrar a notificação
+            requestAnimationFrame(() => {
+                notification.classList.add('show');
+            });
+
+            // Remover a notificação após 3 segundos
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    notification.remove();
+                }, 400);
+            }, 3000);
+        }
     </script>
 
 </body>
