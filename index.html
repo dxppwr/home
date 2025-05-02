@@ -196,6 +196,7 @@
             position: relative;
             font-weight: 500;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .links a::after {
@@ -378,6 +379,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
         
         .settings-menu button:hover {
@@ -502,6 +504,7 @@
             border: none;
             border-radius: 8px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .settings-input:focus {
@@ -566,6 +569,7 @@
             color: var(--hover-glow);
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .credits-link:hover {
@@ -846,6 +850,208 @@
         .privacy-notice i {
             color: var(--hover-glow);
         }
+        /* Estilos para os toggles */
+        
+        .toggle-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background-color: var(--button-background);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-item:hover {
+            background-color: var(--hover-glow);
+            color: var(--background);
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            cursor: pointer;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            cursor: pointer;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ff4444;
+            /* Vermelho para desligado */
+            transition: .4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        
+        input:checked+.slider {
+            background-color: #4CAF50;
+            /* Verde para ligado */
+        }
+        
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        /* Adicionar efeito de brilho nos toggles */
+        
+        .slider {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        input:checked+.slider {
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        
+        input:not(:checked)+.slider {
+            box-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+        }
+        /* Adicionar importações das fontes */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+        /* Estilo para o dropdown de fontes */
+        
+        #fontFamily {
+            font-family: inherit;
+        }
+        
+        #fontFamily option {
+            font-family: inherit;
+        }
+        /* Aplicar a fonte selecionada a todos os elementos de texto */
+        
+        body,
+        input,
+        button,
+        select,
+        textarea {
+            font-family: var(--font-family, 'Inter', sans-serif) !important;
+        }
+        /* Adicionar importações das fontes */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+        /* Classe base para aplicar a fonte */
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-roboto {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .font-open-sans {
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .font-lato {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .font-noto-sans {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        
+        .font-oswald {
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .font-pt-sans {
+            font-family: 'PT Sans', sans-serif;
+        }
+        
+        .font-work-sans {
+            font-family: 'Work Sans', sans-serif;
+        }
+        /* Adicionar estilos para o grupo de botões */
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        /* Adicionar estilos para o link do projeto */
+        
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 2px solid #666666;
+            padding-bottom: 2px;
+        }
+        
+        .project-link:hover {
+            color: var(--primary);
+            text-shadow: none;
+        }
     </style>
 </head>
 
@@ -893,34 +1099,64 @@
     <!-- Settings Menu -->
     <div class="settings-menu" id="settingsMenu">
         <div class="menu-tabs">
-            <button class="tab-button active" data-tab="edit">EDIT</button>
+            <button class="tab-button active" data-tab="personalizacao">PERSONALIZAÇÃO</button>
+            <button class="tab-button" data-tab="conteudo">CONTEÚDO</button>
+            <button class="tab-button" data-tab="aparencia">APARÊNCIA</button>
             <button class="tab-button" data-tab="links">LINKS</button>
-            <button class="tab-button" data-tab="image">IMAGEM</button>
-            <button class="tab-button" data-tab="credit">CREDIT</button>
+            <button class="tab-button" data-tab="sobre">SOBRE</button>
         </div>
 
-        <div class="tab-content active" id="edit-tab">
+        <div class="tab-content active" id="personalizacao-tab">
             <div class="settings-section">
-                <h3>Title</h3>
-                <input type="text" id="pageTitle" placeholder="Insira o título da página">
+                <h3>Informações Pessoais</h3>
+                <input type="text" id="username" placeholder="Seu nome">
+                <input type="text" id="pageTitle" placeholder="Título da página">
             </div>
 
             <div class="settings-section">
-                <h3>Language / Idioma</h3>
-                <select id="language" class="settings-input">
-                    <option value="pt-BR">Português (Brasil)</option>
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
+                <h3>Localização</h3>
+                <select id="state" class="settings-input">
+                    <option value="">Selecione um estado</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+                <select id="city" class="settings-input" disabled>
+                    <option value="">Selecione uma cidade</option>
                 </select>
             </div>
 
             <div class="settings-section">
-                <h3>Nome</h3>
-                <input type="text" id="username" placeholder="Insira seu nome">
-            </div>
-
-            <div class="settings-section">
-                <h3>Search Engine</h3>
+                <h3>Preferências</h3>
+                <select id="language" aria-placeholder="em breve" class="settings-input" hidden disabled>
+                    <option value="pt-BR">Português (Brasil)</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
                 <select id="searchEngine" class="settings-input">
                     <option value="google">Google (Padrão)</option>
                     <option value="duckduckgo">DuckDuckGo (Privacidade)</option>
@@ -933,63 +1169,17 @@
             </div>
 
             <div class="settings-section">
-                <h3>Cidade</h3>
-                <select id="state" class="settings-input">
-                <option value="">Selecione um estado</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
-            </select>
-                <select id="city" class="settings-input" disabled>
-                <option value="">Selecione uma cidade</option>
-            </select>
-            </div>
-
-            <button id="saveSettingsBtn"><i class="fas fa-save"></i> Salvar Configurações</button>
-            <button id="clearSettingsBtn"><i class="fas fa-trash"></i> Limpar Informações</button>
-        </div>
-
-        <div class="tab-content" id="links-tab">
-            <div class="settings-section">
-                <h3>Gerenciar Links</h3>
-                <input type="text" id="linkName" placeholder="Nome do link">
-                <input type="text" id="link" placeholder="Inserir link">
-                <button id="addLinkBtn">Adicionar Link</button>
-                <button id="clearLinksBtn"><i class="fas fa-trash"></i> Limpar Links</button>
-                <div class="links-list" id="linksList">
-                    <!-- Links serão adicionados aqui -->
+                <div class="button-group">
+                    <button id="saveSettingsBtn"><i class="fas fa-save"></i> Salvar Configurações</button>
+                    <button id="clearSettingsBtn"><i class="fas fa-trash"></i> Limpar Informações</button>
                 </div>
             </div>
         </div>
 
-        <div class="tab-content" id="image-tab">
+        <div class="tab-content" id="conteudo-tab">
             <div class="settings-section">
-                <h3>Imagem Personalizada</h3>
-                <p class="upload-info">Faça o upload de sua imagem ou GIF para personalizar sua página inicial.</p>
+                <h3>Imagem de Fundo</h3>
+                <p class="upload-info">Faça o upload de uma imagem para personalizar sua página inicial.</p>
                 <input type="file" id="imageUpload" accept="image/*,.gif" class="settings-input">
                 <div class="image-preview-container" id="imagePreviewContainer">
                     <img id="imagePreview" src="" alt="Preview">
@@ -1000,15 +1190,91 @@
                     <label for="imageHeight">Altura (px):</label>
                     <input type="number" id="imageHeight" class="settings-input" min="100" max="1000" value="300">
                 </div>
-                <button id="saveImageBtn"><i class="fas fa-save"></i> Salvar Imagem</button>
-                <button id="removeImageBtn"><i class="fas fa-trash"></i> Remover Imagem</button>
+                <div class="button-group">
+                    <button id="saveImageBtn"><i class="fas fa-save"></i> Salvar Imagem</button>
+                    <button id="removeImageBtn"><i class="fas fa-trash"></i> Remover Imagem</button>
+                </div>
             </div>
         </div>
 
-        <div class="tab-content" id="credit-tab">
+        <div class="tab-content" id="aparencia-tab">
+            <div class="settings-section">
+                <h3>Fonte</h3>
+                <select id="fontFamily" class="settings-input">
+                    <option value="inter">Inter (Padrão)</option>
+                    <option value="poppins">Poppins</option>
+                    <option value="roboto">Roboto</option>
+                    <option value="open-sans">Open Sans</option>
+                    <option value="montserrat">Montserrat</option>
+                </select>
+            </div>
+
+            <div class="settings-section">
+                <h3>Elementos Visíveis</h3>
+                <div class="toggle-container">
+                    <div class="toggle-item">
+                        <span>Mensagem de Boas-vindas</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggleWelcome" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Data e Hora</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggleDatetime" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Barra de Pesquisa</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggleSearch" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Previsão do Tempo</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggleWeather" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Links</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggleLinks" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span>Imagem Personalizada</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggleImage" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="links-tab">
+            <div class="settings-section">
+                <h3>Gerenciar Links</h3>
+                <input type="text" id="linkName" placeholder="Nome do link">
+                <input type="text" id="link" placeholder="Inserir link">
+                <div class="button-group">
+                    <button id="addLinkBtn">Adicionar Link</button>
+                    <button id="clearLinksBtn"><i class="fas fa-trash"></i> Limpar Links</button>
+                </div>
+                <div class="links-list" id="linksList">
+                    <!-- Links serão adicionados aqui -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="sobre-tab">
             <div class="credits-content">
-                <p>Comfy Homepage é um projeto open-source desenvolvido por <a href="https://github.com/dxppwr" target="_blank" class="credits-link">@dxppwr</a>, oferecendo uma experiência de navegação moderna e personalizável.</p>
-                <p>O código-fonte está disponível em: <a href="https://github.com/dxppwr/home" target="_blank" class="credits-link">github.com/dxppwr/home</a></p>
                 <p class="privacy-notice"><i class="fas fa-shield-alt"></i> Privacidade: Este projeto não salva nenhuma informação pessoal inserida pelo usuário. Todos os dados são armazenados localmente no seu navegador e podem ser removidos a qualquer momento.</p>
                 <p>Desenvolvido com tecnologias web modernas:</p>
                 <ul>
@@ -1028,7 +1294,7 @@
                     <li>Suporte a múltiplos idiomas (Português, Inglês, Espanhol)</li>
                     <li>Interface responsiva e adaptável</li>
                 </ul>
-                <p>Este projeto é mantido com carinho e dedicação. Se você gostou e quer apoiar o desenvolvimento, doações são muito bem-vindas! <i class="fas fa-heart"></i></p>
+                <p>Este <a href="https://github.com/dxppwr/home" target="_blank" class="project-link">PROJETO</a> é mantido com carinho e dedicação. Se você gostou e quer apoiar o desenvolvimento, doações são muito bem-vindas! <i class="fas fa-heart"></i></p>
 
                 <div class="donations-section">
                     <div class="crypto-addresses">
@@ -1567,7 +1833,7 @@
                 clearLinks: 'Limpar Links'
             },
             'en': {
-                welcome: 'Welcome',
+                welcome: 'Olá',
                 title: 'Title',
                 titlePlaceholder: 'Enter page title',
                 language: 'Language',
@@ -1612,7 +1878,7 @@
                 clearLinks: 'Clear Links'
             },
             'es': {
-                welcome: 'Hola',
+                welcome: 'Olá',
                 title: 'Título',
                 titlePlaceholder: 'Ingrese el título de la página',
                 language: 'Idioma',
@@ -2204,6 +2470,130 @@
                 }, 400);
             }, 3000);
         }
+
+        // Função para salvar e carregar preferências de visibilidade
+        function saveVisibilityPreferences() {
+            const preferences = {
+                welcome: document.getElementById('toggleWelcome').checked,
+                datetime: document.getElementById('toggleDatetime').checked,
+                search: document.getElementById('toggleSearch').checked,
+                weather: document.getElementById('toggleWeather').checked,
+                links: document.getElementById('toggleLinks').checked,
+                image: document.getElementById('toggleImage').checked
+            };
+            localStorage.setItem('visibilityPreferences', JSON.stringify(preferences));
+        }
+
+        function loadVisibilityPreferences() {
+            const preferences = JSON.parse(localStorage.getItem('visibilityPreferences')) || {
+                welcome: true,
+                datetime: true,
+                search: true,
+                weather: true,
+                links: true,
+                image: true
+            };
+
+            // Aplicar preferências salvas
+            document.getElementById('toggleWelcome').checked = preferences.welcome;
+            document.getElementById('toggleDatetime').checked = preferences.datetime;
+            document.getElementById('toggleSearch').checked = preferences.search;
+            document.getElementById('toggleWeather').checked = preferences.weather;
+            document.getElementById('toggleLinks').checked = preferences.links;
+            document.getElementById('toggleImage').checked = preferences.image;
+
+            // Atualizar visibilidade dos elementos
+            updateVisibility();
+        }
+
+        function updateVisibility() {
+            const preferences = JSON.parse(localStorage.getItem('visibilityPreferences')) || {
+                welcome: true,
+                datetime: true,
+                search: true,
+                weather: true,
+                links: true,
+                image: true
+            };
+
+            // Aplicar visibilidade aos elementos
+            document.querySelector('header').style.display = preferences.welcome ? 'block' : 'none';
+            document.querySelector('.datetime').style.display = preferences.datetime ? 'block' : 'none';
+            document.querySelector('.search-bar').style.display = preferences.search ? 'flex' : 'none';
+            document.querySelector('.weather').style.display = preferences.weather ? 'flex' : 'none';
+            document.querySelector('.links').style.display = preferences.links ? 'flex' : 'none';
+            const mainImage = document.getElementById('mainCustomImage');
+            if (mainImage) {
+                mainImage.style.display = preferences.image ? 'block' : 'none';
+            }
+        }
+
+        // Adicionar eventos aos toggles
+        document.querySelectorAll('.toggle-item input[type="checkbox"]').forEach(toggle => {
+            toggle.addEventListener('change', () => {
+                saveVisibilityPreferences();
+                updateVisibility();
+            });
+        });
+
+        // Carregar preferências ao iniciar
+        window.addEventListener('load', () => {
+            loadVisibilityPreferences();
+            // ... existing load code ...
+        });
+
+        // Função para aplicar a fonte
+        function applyFont(fontName) {
+            // Remover todas as classes de fonte existentes
+            const fontClasses = [
+                'font-inter', 'font-poppins', 'font-roboto', 'font-open-sans',
+                'font-montserrat'
+            ];
+
+            document.body.classList.remove(...fontClasses);
+
+            // Adicionar a nova classe de fonte
+            document.body.classList.add(`font-${fontName}`);
+
+            // Aplicar a mesma fonte a todos os elementos de texto
+            const textElements = document.querySelectorAll('input, button, select, textarea, h1, h2, h3, h4, h5, h6, p, span, div, a');
+            textElements.forEach(element => {
+                element.classList.remove(...fontClasses);
+                element.classList.add(`font-${fontName}`);
+            });
+        }
+
+        // Função para salvar e carregar a fonte selecionada
+        function saveFontPreference() {
+            const fontName = document.getElementById('fontFamily').value;
+            localStorage.setItem('fontName', fontName);
+            applyFont(fontName);
+        }
+
+        function loadFontPreference() {
+            const savedFont = localStorage.getItem('fontName');
+            if (savedFont) {
+                document.getElementById('fontFamily').value = savedFont;
+                applyFont(savedFont);
+            }
+        }
+
+        // Adicionar evento ao dropdown de fontes
+        document.getElementById('fontFamily').addEventListener('change', saveFontPreference);
+
+        // Carregar preferências ao iniciar
+        window.addEventListener('load', () => {
+            loadFontPreference();
+            // ... existing load code ...
+        });
+
+        // Atualizar função saveSettingsBtn para incluir a fonte
+        saveSettingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // ... existing save code ...
+            saveFontPreference();
+            // ... rest of existing save code ...
+        });
     </script>
 
 </body>
