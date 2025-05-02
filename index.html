@@ -1740,6 +1740,37 @@
             } else {
                 updateLanguage(navigator.language);
             }
+
+            // Focar automaticamente na barra de pesquisa
+            setTimeout(() => {
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                    // Garantir que o cursor esteja no final do texto
+                    searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+                }
+            }, 100);
+
+            // Adicionar evento para manter o foco na barra de pesquisa
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-bar') && !e.target.closest('.settings-menu')) {
+                    const searchInput = document.getElementById('searchInput');
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+            });
+        });
+
+        // Adicionar foco também quando a página estiver pronta
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+                }
+            }, 100);
         });
 
         // Language change event
